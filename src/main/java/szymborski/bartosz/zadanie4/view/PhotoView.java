@@ -14,6 +14,7 @@ import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
 import static szymborski.bartosz.zadanie4.service.ImageResourceApplicationService.FILE_NAME;
 
 /**
@@ -22,7 +23,7 @@ import static szymborski.bartosz.zadanie4.service.ImageResourceApplicationServic
  */
 @Component
 @Scope("view")
-public class photoView {
+public class PhotoView {
 
     public static final String FILE_NAME = "FILE_NAME";
     private String fileName;
