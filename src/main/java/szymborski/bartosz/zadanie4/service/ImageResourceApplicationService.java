@@ -6,6 +6,7 @@
 package szymborski.bartosz.zadanie4.service;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,16 +51,7 @@ public class ImageResourceApplicationService implements InitializingBean {
             bufferedImage = ImageIO.read(file.getInputstream());//czytanie zawartośći pliku
             if (bufferedImage != null) {
                 byte[] bArray = readFileToByteArray(file);
-                images.put(file.getFileName(), bArray);
-                int width = bufferedImage.getWidth();
-                int height = bufferedImage.getHeight();
-                Integer[] arr = new Integer[2];
-                arr[0] = width;
-                arr[1] = height;
-                checkerMap.put(file.getFileName(), arr);
-                System.out.println(width);
-                System.out.println(height);
-                System.out.println(checkerMap.toString());
+                addToMaps(file.getFileName(), bArray, bufferedImage);
                 Image image = new Image();
                 image.setPicture(images.get(file.getFileName()));
                 image.setPictureName(file.getFileName());
@@ -72,6 +64,30 @@ public class ImageResourceApplicationService implements InitializingBean {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private void addToMaps(String fileName, byte[] bArray, BufferedImage bufferedImage) {
+        images.put(fileName, bArray);
+        int width = bufferedImage.getWidth();
+        int height = bufferedImage.getHeight();
+        Integer[] arr = new Integer[2];
+        arr[0] = width;
+        arr[1] = height;
+        checkerMap.put(fileName, arr);
+        System.out.println(width);
+        System.out.println(height);
+        System.out.println(checkerMap.toString());
+    }
+
+    private void addToMaps(Image img){
+        BufferedImage bufferedImage = null;
+        
+        try(InputStream inputStream = new ByteArrayInputStream(img.getPicture())) {
+            bufferedImage = ImageIO.read(inputStream);
+        } catch (IOException ex) {
+            Logger.getLogger(ImageResourceApplicationService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        addToMaps(img.getPictureName(), img.getPicture(), bufferedImage);
     }
 
     private byte[] readFileToByteArray(UploadedFile file) {
@@ -99,7 +115,8 @@ public class ImageResourceApplicationService implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-
+       imageDao.getImages().forEach(this::addToMaps);
+        
     }
 
     public StreamedContent streamize(String fileName) {

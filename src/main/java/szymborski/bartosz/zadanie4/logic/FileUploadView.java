@@ -5,7 +5,9 @@
  */
 package szymborski.bartosz.zadanie4.logic;
 
-import java.util.Arrays;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -41,20 +43,27 @@ public class FileUploadView {
             String fileName = file.getFileName();//pobieranie nazwy uploadowanego pliku
             String[] split = fileName.split("\\.");//dzielnie nazwy uploadowanego pliku na dwa indeksy
             if (split.length >= 1) { //jeśli ma drugi człon
-                String typeOfFile = split[split.length-1];//przypadek jak jest więcej niż jedna kropka (znajdzie ostatni element po kropce - który jest rozszerzeniem pliku, a - 1 bo trzeba pamiętać o indeksach)
-                if (Stream.of("jpg","png","jpeg").anyMatch(s -> s.equals(typeOfFile))) //sprawdzanie czy drugi człon pliku zgadza się z formatem przekazywanym 
+                String typeOfFile = split[split.length - 1];//przypadek jak jest więcej niż jedna kropka (znajdzie ostatni element po kropce - który jest rozszerzeniem pliku, a - 1 bo trzeba pamiętać o indeksach)
+                if (Stream.of("jpg", "png", "jpeg").anyMatch(s -> s.equals(typeOfFile))) //sprawdzanie czy drugi człon pliku zgadza się z formatem przekazywanym 
                 {
-                    iras.addPhoto(file);
+                    try {
+                        iras.addPhoto(file);
+                    } catch (Exception e) {
+                        Logger.getLogger(FileUploadView.class.getName()).log(Level.SEVERE, null, e);
+                        FacesMessage message = new FacesMessage("Uploaded file " + file.getFileName() + " exist in database");
+                        FacesContext.getCurrentInstance().addMessage(null, message);
+                        return;
+                    }
                     FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded");
                     FacesContext.getCurrentInstance().addMessage(null, message); //dodwanie zdjęcia plus komuniakt
                     return; //przerwanie działania metody
                 }
+
 // http://thequirksofit.blogspot.com/2016/08/fileuploadexception-ut000020-connection.html ustawianie max wielkości przesyłanego pliku w Wildfly
             }
-        } 
-            FacesMessage mess = new FacesMessage("Please upload picture file. Any other file will not be permited. File also must exist");//to wyświetli się jeśli jakiś warunek u góry się nie spełnił
-            FacesContext.getCurrentInstance().addMessage(null, mess);
-        
+        }
+        FacesMessage mess = new FacesMessage("Faild");//to wyświetli się jeśli jakiś warunek u góry się nie spełnił
+        FacesContext.getCurrentInstance().addMessage(null, mess);
 
     }
 }

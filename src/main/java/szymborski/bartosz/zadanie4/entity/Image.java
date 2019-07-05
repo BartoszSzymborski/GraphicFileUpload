@@ -41,10 +41,10 @@ public class Image implements Serializable {
     private Long id;
     @Lob //Larg Object - zdjęcia 
     @Type(type = "org.hibernate.type.BinaryType") //działa na postgresSQL = https://stackoverflow.com/questions/3677380/proper-hibernate-annotation-for-byte
-    @Column(name = "picture", length = 100000)
+    @Column(name = "picture", length = 100000, nullable = false)
     private byte[] picture;
     @Size(max = 2147483647)
-    @Column(name = "picture_name")
+    @Column(name = "picture_name", unique = true)
     private String pictureName;
 
     public Image() {
@@ -107,5 +107,5 @@ public class Image implements Serializable {
     public String toString() {
         return "szymborski.bartosz.zadanie4.entity.Image[ id=" + id + " ]";
     }
-
+    
 }
