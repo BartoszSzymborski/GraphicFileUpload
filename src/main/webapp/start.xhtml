@@ -14,9 +14,10 @@
         <h:form enctype="multipart/form-data">
             <p:growl id="messages" showDetail="true" />
             <p:fileUpload label="Wybierz plik" value="#{fileUploadView.file}" mode="simple" skinSimple="true" 
-                          fileLimit="1" auto="false" accept=".jpg,.png,.jpeg"/>
+                          fileLimit="1" auto="false" update="messages">
+            </p:fileUpload>
             <br /> <br />
-            <p:commandButton value="Zapisz" ajax="false" action="#{fileUploadView.upload}"  />
+            <p:commandButton widgetVar="saveButton" id="saveButton" value="Zapisz" ajax="false" action="#{fileUploadView.upload}" />
             <br/><br/>
             <p:link outcome="imageList" value="Lista zdjęć">
             </p:link>

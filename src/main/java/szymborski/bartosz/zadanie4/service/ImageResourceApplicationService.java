@@ -39,32 +39,37 @@ public class ImageResourceApplicationService implements InitializingBean {
 
     private final Map<String, byte[]> images = new HashMap<>();
     private final Map<String, Integer[]> checkerMap = new HashMap<>();
-    
+
     @Autowired
     private ImageDao imageDao;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void addPhoto(UploadedFile file) {
-        byte[] bArray = readFileToByteArray(file);
-        images.put(file.getFileName(), bArray);
         try {
             BufferedImage bufferedImage = null;
-            bufferedImage = ImageIO.read(file.getInputstream());
-            int width = bufferedImage.getWidth();
-            int height = bufferedImage.getHeight();
-            Integer[] arr = new Integer[2];
-            arr[0] = width;
-            arr[1] = height;
-            checkerMap.put(file.getFileName(), arr);
-            System.out.println(width);
-            System.out.println(height);
-            System.out.println(checkerMap.toString());
-            Image image = new Image();
-            image.setPicture(images.get(file.getFileName()));
-            image.setPictureName(file.getFileName());
-            imageDao.persistImage(image);
+            bufferedImage = ImageIO.read(file.getInputstream());//czytanie zawartośći pliku
+            if (bufferedImage != null) {
+                byte[] bArray = readFileToByteArray(file);
+                images.put(file.getFileName(), bArray);
+                int width = bufferedImage.getWidth();
+                int height = bufferedImage.getHeight();
+                Integer[] arr = new Integer[2];
+                arr[0] = width;
+                arr[1] = height;
+                checkerMap.put(file.getFileName(), arr);
+                System.out.println(width);
+                System.out.println(height);
+                System.out.println(checkerMap.toString());
+                Image image = new Image();
+                image.setPicture(images.get(file.getFileName()));
+                image.setPictureName(file.getFileName());
+                imageDao.persistImage(image);
+                System.out.println("ddałem plik");
+            } else {
+                System.out.println("nie ma pliku");
+            }
         } catch (Exception e) {
-           throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
 
     }
@@ -94,7 +99,7 @@ public class ImageResourceApplicationService implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        
+
     }
 
     public StreamedContent streamize(String fileName) {

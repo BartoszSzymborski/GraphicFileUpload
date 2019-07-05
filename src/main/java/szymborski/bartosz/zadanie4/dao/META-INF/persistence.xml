@@ -9,7 +9,7 @@
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="javax.persistence.jdbc.password" value="root"/>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
-      <property name="hibernate.transaction.factory_class" value="org.hibernate.transaction.CMTTransactionFactory"/>
+      <property name="hibernate.transaction.factory_class" value="org.hibernate.transaction.CMTTransactionFactory"/> <!-- do zapisywanie obrazów w bazie-->
     </properties>
   </persistence-unit>
 </persistence>

@@ -97,7 +97,7 @@
                 <includes>
                     <include>MANIFEST.MF</include>
                 </includes>
-                <targetPath>/META-INF</targetPath>
+                <targetPath>/META-INF</targetPath> <!-- budowanie aplikacji -->
             </resource>
         </resources>
         <plugins>

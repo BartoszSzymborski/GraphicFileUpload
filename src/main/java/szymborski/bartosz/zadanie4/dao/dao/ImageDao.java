@@ -26,7 +26,7 @@ public class ImageDao {
     @Transactional(propagation = Propagation.MANDATORY)
     public void persistImage(Image image){
         Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(Image.class.getSimpleName(),image);
+        session.saveOrUpdate(Image.class.getSimpleName(),image); // CRUD - zapisywanie do bazy
     }
     
 }

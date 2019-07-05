@@ -31,7 +31,7 @@
                     <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL94Dialect
                     </prop>
                     <prop key="hibernate.show_sql">true</prop>
-                    <prop key="hibernate.jdbc.use_streams_for_binary">false</prop>
+                    <prop key="hibernate.jdbc.use_streams_for_binary">false</prop> <!-- do zapisywania obrazów w bazie -->
                 </props>
             </property>
             <property name="packagesToScan">
