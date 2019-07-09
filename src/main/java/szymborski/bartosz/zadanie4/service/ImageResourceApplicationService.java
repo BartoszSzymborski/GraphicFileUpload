@@ -161,7 +161,7 @@ public class ImageResourceApplicationService implements InitializingBean {
 
     }
 
-    @Async
+    @Async //adnotacja o asynchroniczności - to wykonuje się niezależnie, musi być wywołana w innej klasie niż sie znajduje (znajdowała by się w ImageListView - po dotyczy zapisu list)
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void saveNewList() {
         Collection<Image> image = imageDao.getImages();
