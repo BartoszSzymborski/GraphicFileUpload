@@ -16,16 +16,36 @@ and open the template in the editor.
     </h:head>
     <h:body>
         <h:form id="form">
-            <p:dataList value="#{imagListView.getList()}" var="images" type="ordered">
-                <f:facet name="header">
-                    Basic
+              <p:growl id="messages" showDetail="true" />
+            <p:dataTable value="#{imageListView.imageList}" var="images"
+                         paginator="true"  rowIndexVar="index" 
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+                         rowsPerPageTemplate="25,50" rows="25"  >
+                <f:facet name="caption">
+                    Lista zdjęć
                 </f:facet>
-                <p:commandButton icon="ui-icon-image" action="#{availablePhotosView.openPhoto(images.getKey())}">
-                </p:commandButton>
-                #{images.getKey()}, #{images.getValue()}KB
-            </p:dataList>
+                <p:column>
+                    <p:commandButton icon="ui-icon-arrow-1-n" action="#{imageListView.upAndDownList(images.getKey(), false)}" style="float: left;" update="form">
+                    </p:commandButton>
+                    <p:commandButton icon=" ui-icon-arrow-1-s" action="#{imageListView.upAndDownList(images.getKey(), true)}" style="float: left;" update="form">
+                    </p:commandButton>
+                </p:column>
+                <p:column>
+                    <p:commandButton icon="ui-icon-image" action="#{availablePhotosView.openPhoto(images.getKey())}"  >
+                    </p:commandButton>
+                </p:column>
+                <p:column style="text-align: center;">
+                    <h:outputText value="#{images.getKey()}"/>
+                </p:column>
+                <p:column style="text-align: center;">
+                    <h:outputText value="#{images.getValue()}  KB" />
+                </p:column>
+            </p:dataTable>
+            <br/>
             <p:link outcome="start" value="Powrót do strony głównej" >
             </p:link>
+            <p:commandButton value="Zapisz listę" type="submit" action="#{imageResourceApplicationService.saveNewList()}" update="messages"><br/><br/>
+            </p:commandButton>
         </h:form>
     </h:body>
 </html>

@@ -26,8 +26,8 @@ public class AvailablePhotosView {
     @Autowired
     private ImageResourceApplicationService iras;
            
-    public void openPhoto(String fileName){
         Map<String,Object> options = new HashMap<>();
+    public void openPhoto(String fileName){
         options.put("draggable", Boolean.TRUE);
         options.put("resizable", Boolean.TRUE);
         options.put("responsive", Boolean.TRUE);

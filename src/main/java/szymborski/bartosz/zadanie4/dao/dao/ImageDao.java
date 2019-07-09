@@ -35,7 +35,7 @@ public class ImageDao {
     }
 
     @SuppressWarnings("unchecked")
-    public Collection<? extends Image> getImages(String pictureName) {
+    public Collection<? extends Image> getImages(String pictureName) { //? extends - wild card - każda klasa rozszerzająca twoją klase - Image
         Session session = sessionFactory.getCurrentSession();
         pictureName = pictureName.toLowerCase();
         Query query = session.createQuery("SELECT pictureName FROM Image i");
@@ -47,12 +47,22 @@ public class ImageDao {
 
     @SuppressWarnings("unchecked")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public Collection<? extends Image> getImages() {
+    public Collection<Image> getImages() {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("FROM Image");
+        Query query = session.createQuery("SELECT i FROM Image i ORDER BY i.position ASC");
         final List list = query.list();
         list.forEach(Hibernate::initialize);
         return list;
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void updateImages(Image... image) { //varargs - wiele lub jeden artgumentów do tablicy
+        if (image != null) { // jeśli nie jest null
+            for (Image img : image) { //iteracja dla każdego elementu
+                Session session = sessionFactory.getCurrentSession();
+                session.update(img);//CRUD - update
+            }
+        }
+
+    }
 }

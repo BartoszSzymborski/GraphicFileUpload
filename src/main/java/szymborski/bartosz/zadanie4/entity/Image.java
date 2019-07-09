@@ -46,6 +46,8 @@ public class Image implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "picture_name", unique = true)
     private String pictureName;
+    @Column(name = "position", nullable = false)
+    private int position;
 
     public Image() {
     }
@@ -83,6 +85,15 @@ public class Image implements Serializable {
         this.pictureName = pictureName;
     }
 
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -107,5 +118,6 @@ public class Image implements Serializable {
     public String toString() {
         return "szymborski.bartosz.zadanie4.entity.Image[ id=" + id + " ]";
     }
+
     
 }

@@ -11,6 +11,7 @@
     <context:component-scan base-package="szymborski.bartosz.zadanie4.logic"/>
     <context:component-scan base-package="szymborski.bartosz.zadanie4.view"/>
     <context:component-scan base-package="szymborski.bartosz.zadanie4.service"/>
+     <task:annotation-driven /> 
   
     
 
