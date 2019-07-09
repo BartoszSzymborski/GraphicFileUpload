@@ -168,6 +168,5 @@ public class ImageResourceApplicationService implements InitializingBean {
         Hibernate.initialize(image); //Hibernate - pobiera klucz główny encji. Hibernate initialize - dociąga wszystkie pola encji.
         image.forEach(img -> img.setPosition(imagesPosition.get(img.getPictureName()))); // pobieranie każadej encji, ustawianie dla niej pozycji której wartość pobieramy z mapy po nazwie zdjęcia 
         image.forEach(imageDao::updateImages);
-        
     }
 }

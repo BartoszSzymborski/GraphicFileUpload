@@ -44,7 +44,7 @@ and open the template in the editor.
             <br/>
             <p:link outcome="start" value="Powrót do strony głównej" >
             </p:link>
-            <p:commandButton value="Zapisz listę" type="submit" action="#{imageResourceApplicationService.saveNewList()}" update="messages"><br/><br/>
+            <p:commandButton value="Zapisz listę" type="submit" action="#{imageResourceApplicationService.saveNewList()}" update="form" actionListener="#{imageListView.infoAboutSaveList()}"><br/><br/>
             </p:commandButton>
         </h:form>
     </h:body>

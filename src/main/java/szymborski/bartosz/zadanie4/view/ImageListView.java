@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import szymborski.bartosz.zadanie4.service.ImageResourceApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -43,11 +45,18 @@ public class ImageListView {
         this.imageList = imageList;
     }
 
-    public void upAndDownList(String fileName, boolean up) {
-        Map<String, Integer> mapPosition = iras.getImagesPosition();
-        int newPosition = mapPosition.get(fileName) + (up ? 1 : - 1);
-        iras.changeImagePositon(fileName, newPosition);
+    public void upAndDownList(String fileName, boolean down) {
+        Map<String, Integer> mapPosition = iras.getImagesPosition();//pobranie pozycji 
+        int newPosition = mapPosition.get(fileName) + (down ? 1 : - 1);//ustalenie nowej pozycji wraz z warunkiem, że jeśli down to albo +1 albo -1
+        iras.changeImagePositon(fileName, newPosition); //zaposujemy nową zmienną
+        FacesMessage message = new FacesMessage("Position change"); //komunikat o zmianie pozycji
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
-    
+
+    public void infoAboutSaveList() {
+        // metoda wywałana na widoku w właściwości actionListener = wtedy metoda wywoła sie po wykonaniu metody ujętej w action
+        FacesMessage message = new FacesMessage("Changes save");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
 
 }
