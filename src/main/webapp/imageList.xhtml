@@ -20,11 +20,11 @@ and open the template in the editor.
             <p:dataTable value="#{imageListView.imageList}" var="images"
                          paginator="true"  rowIndexVar="index" 
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
-                         rowsPerPageTemplate="25,50" rows="25"  >
+                         rowsPerPageTemplate="25,50" rows="25"   >
                 <p:column>
-                    <p:commandButton icon="ui-icon-arrow-1-n" action="#{imageListView.upAndDownList(images.getKey(), false)}" style="float: left;" update="form">
+                    <p:commandButton icon="ui-icon-arrow-1-n" action="#{imageListView.upAndDownList(images.getKey(), false)}" update="form">
                     </p:commandButton>
-                    <p:commandButton icon=" ui-icon-arrow-1-s" action="#{imageListView.upAndDownList(images.getKey(), true)}" style="float: left;" update="form">
+                    <p:commandButton icon=" ui-icon-arrow-1-s" action="#{imageListView.upAndDownList(images.getKey(), true)}"  update="form">
                     </p:commandButton>
                 </p:column>
                 <p:column>

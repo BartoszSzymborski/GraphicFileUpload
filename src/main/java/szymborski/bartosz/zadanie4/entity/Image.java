@@ -37,7 +37,7 @@ public class Image implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Long id;
     @Lob //Larg Object - zdjęcia 
     @Type(type = "org.hibernate.type.BinaryType") //działa na postgresSQL = https://stackoverflow.com/questions/3677380/proper-hibernate-annotation-for-byte

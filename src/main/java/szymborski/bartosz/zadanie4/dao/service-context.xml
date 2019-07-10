@@ -8,22 +8,18 @@
 
 
     <context:annotation-config/>
-    <context:component-scan base-package="szymborski.bartosz.zadanie4.logic"/>
     <context:component-scan base-package="szymborski.bartosz.zadanie4.view"/>
     <context:component-scan base-package="szymborski.bartosz.zadanie4.service"/>
      <task:annotation-driven />  <!-- potrzebny do funkcjonalności wątków asynchronicznych -->
   
     
-
     <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
         <property name="scopes">
             <map>
                 <entry key="view">
-                    <bean class="szymborski.bartosz.zadanie4.logic.ViewScope"/>
+                    <bean class="szymborski.bartosz.zadanie4.view.ViewScope"/>
                 </entry>
             </map>
         </property>
     </bean>
-
-
 </beans>

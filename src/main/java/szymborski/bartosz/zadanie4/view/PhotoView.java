@@ -8,14 +8,11 @@ package szymborski.bartosz.zadanie4.view;
 import szymborski.bartosz.zadanie4.service.ImageResourceApplicationService;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import org.primefaces.PrimeFaces;
 import org.primefaces.context.PrimeFacesContext;
 import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.SessionScope;
-import static szymborski.bartosz.zadanie4.service.ImageResourceApplicationService.FILE_NAME;
 
 /**
  *

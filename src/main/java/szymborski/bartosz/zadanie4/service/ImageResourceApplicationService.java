@@ -17,8 +17,6 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 import org.hibernate.Hibernate;
 import org.primefaces.model.ByteArrayContent;
@@ -65,9 +63,8 @@ public class ImageResourceApplicationService implements InitializingBean {
                 image.setPictureName(file.getFileName());
                 image.setPosition(position);
                 imageDao.persistImage(image);
-                System.out.println("ddałem plik");
             } else {
-                System.out.println("nie ma pliku");
+                System.out.println("Pliku nie dodano do bazy");
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -84,9 +81,6 @@ public class ImageResourceApplicationService implements InitializingBean {
         arr[1] = height;
         checkerMap.put(fileName, arr);
         imagesPosition.put(fileName, position);
-        System.out.println(width);
-        System.out.println(height);
-        System.out.println(checkerMap.toString());
     }
 
     private void addToMaps(Image img) {

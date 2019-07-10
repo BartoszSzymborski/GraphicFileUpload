@@ -22,21 +22,22 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("request")
 public class AvailablePhotosView {
-    
+
     @Autowired
     private ImageResourceApplicationService iras;
-           
-        Map<String,Object> options = new HashMap<>();
-    public void openPhoto(String fileName){
+
+    Map<String, Object> options = new HashMap<>();
+
+    public void openPhoto(String fileName) {
         options.put("draggable", Boolean.TRUE);
         options.put("resizable", Boolean.TRUE);
         options.put("responsive", Boolean.TRUE);
-        options.put("contentHeight", iras.getCheckerMap().get(fileName)[1]+20);
-        options.put("contentWidth", iras.getCheckerMap().get(fileName)[0]+20);
+        options.put("contentHeight", iras.getCheckerMap().get(fileName)[1] + 20);
+        options.put("contentWidth", iras.getCheckerMap().get(fileName)[0] + 20);
         Map<String, List<String>> params = new HashMap<>();
         params.put(ImageResourceApplicationService.FILE_NAME, Arrays.asList(fileName));
-        PrimeFaces.current().dialog().openDynamic("showPhoto",options, params);
-        
+        PrimeFaces.current().dialog().openDynamic("showPhoto", options, params);
+
     }
-    
+
 }

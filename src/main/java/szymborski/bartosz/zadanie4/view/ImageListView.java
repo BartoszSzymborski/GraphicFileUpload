@@ -6,8 +6,6 @@
 package szymborski.bartosz.zadanie4.view;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
@@ -16,7 +14,6 @@ import szymborski.bartosz.zadanie4.service.ImageResourceApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import szymborski.bartosz.zadanie4.entity.Image;
 
 /**
  *
@@ -47,7 +44,7 @@ public class ImageListView {
 
     public void upAndDownList(String fileName, boolean down) {
         Map<String, Integer> mapPosition = iras.getImagesPosition();//pobranie pozycji 
-        int newPosition = mapPosition.get(fileName) + (down ? 1 : - 1);//ustalenie nowej pozycji wraz z warunkiem, że jeśli down to albo +1 albo -1
+        int newPosition = mapPosition.get(fileName) + (down ? 1 : - 1);//ustalenie nowej pozycji wraz z warunkiem, że jeśli down to  +1 albo -1
         iras.changeImagePositon(fileName, newPosition); //zaposujemy nową zmienną
         FacesMessage message = new FacesMessage("Position change"); //komunikat o zmianie pozycji
         FacesContext.getCurrentInstance().addMessage(null, message);

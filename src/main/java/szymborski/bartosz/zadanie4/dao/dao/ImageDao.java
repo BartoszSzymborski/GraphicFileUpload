@@ -31,11 +31,11 @@ public class ImageDao {
     @Transactional(propagation = Propagation.MANDATORY)
     public void persistImage(Image image) {
         Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(Image.class.getSimpleName(), image); // CRUD - zapisywanie do bazy
+        session.saveOrUpdate(Image.class.getSimpleName(), image); // CRUD - C - zapisywanie do bazy
     }
 
     @SuppressWarnings("unchecked")
-    public Collection<? extends Image> getImages(String pictureName) { //? extends - wild card - każda klasa rozszerzająca twoją klase - Image
+    public Collection<Image> getImages(String pictureName) { //gdy - ? extends - wild card - każda klasa rozszerzająca twoją klase - Image
         Session session = sessionFactory.getCurrentSession();
         pictureName = pictureName.toLowerCase();
         Query query = session.createQuery("SELECT pictureName FROM Image i");
@@ -49,7 +49,7 @@ public class ImageDao {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Collection<Image> getImages() {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("SELECT i FROM Image i ORDER BY i.position ASC");
+        Query query = session.createQuery("SELECT i FROM Image i ORDER BY i.position ASC"); // CRUD - R - pobieranie listy wszystkich plików uporządkowanych po numerze pozycji
         final List list = query.list();
         list.forEach(Hibernate::initialize);
         return list;
@@ -60,7 +60,7 @@ public class ImageDao {
         if (image != null) { // jeśli nie jest null
             for (Image img : image) { //iteracja dla każdego elementu
                 Session session = sessionFactory.getCurrentSession();
-                session.update(img);//CRUD - update
+                session.update(img);//CRUD - U -  update
             }
         }
 
